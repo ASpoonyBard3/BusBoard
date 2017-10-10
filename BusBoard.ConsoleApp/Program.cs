@@ -10,6 +10,8 @@ namespace BusBoard.ConsoleApp
   {
     static void Main(string[] args)
     {
+            Console.WriteLine("HelloWorld!");
+            Console.ReadLine();
     }
   }
 }
