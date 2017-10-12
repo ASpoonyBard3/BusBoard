@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using RestSharp;
 using RestSharp.Authenticators;
+using BusBoard.Api;
 
 namespace BusBoard.ConsoleApp
 {
@@ -14,8 +15,9 @@ namespace BusBoard.ConsoleApp
             string postCode = Console.ReadLine();
             return postCode;
         }
-
+        /*
         private static PostcodeLocation GetPostcodeLocationFromPostcodeAPI(string postcode)
+
         {
             var PCclient = new RestClient("https://api.postcodes.io");
             var PCrequest = new RestRequest("/postcodes/" + postcode + "", Method.GET);
@@ -23,7 +25,7 @@ namespace BusBoard.ConsoleApp
             return response.Data.result;
         }
 
-        private static string GetBusStopCodeForLocationFromTFL(float lat,  float lon)
+        private static string GetBusStopCodeForLocationFromTFL(float lat, float lon)
         {
             var client = new RestClient("https://api.tfl.gov.uk");
             var request = new RestRequest("StopPoint?stopTypes=NaptanPublicBusCoachTram&returnLines=true&lat=" + lat + "&lon=" + lon + "", Method.GET);
@@ -32,6 +34,7 @@ namespace BusBoard.ConsoleApp
             var response = client.Execute<StopPointDetails>(request);
             return response.Data.stopPoints.First().naptanId;
         }
+
         private static IEnumerable<ArrivalPrediction> GetBusStopArrivalTimesFromTFL(string busStop)
         {
             var client = new RestClient("https://api.tfl.gov.uk");
@@ -42,6 +45,7 @@ namespace BusBoard.ConsoleApp
             var OrderedArrivals = arrivals.OrderBy(arrival => arrival.TimeToStation).Take(5);
             return OrderedArrivals;
         }
+        */
         private static void PrintArrivalTimesToConsole(IEnumerable<ArrivalPrediction> arrivalTimes)
         {
             foreach (var Arrival in arrivalTimes)
@@ -58,23 +62,8 @@ namespace BusBoard.ConsoleApp
             System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
 
             var postcode = AskUserForPostcode();
-            var postcodeLocation = GetPostcodeLocationFromPostcodeAPI(postcode);
-            var busStopCode = GetBusStopCodeForLocationFromTFL(postcodeLocation.latitude, postcodeLocation.longitude);
-            var arrivalTimes = GetBusStopArrivalTimesFromTFL(busStopCode);
+            var PostCodeQuery = new 
             PrintArrivalTimesToConsole(arrivalTimes);
         }
     }
-public class GetPostcodeLocationFromPostcodeAPI
-    {
-        public string postcode { get; set; }
-
-        public Method GetPostcodeLocationFromPostcodeAPI(string postcode)
-        {
-            private RestClient PCclient = new RestClient("https://api.postcodes.io");
-            private RestRequest PCrequest = new RestRequest("/postcodes/" + postcode + "", Method.GET);
-            private RestResponse response = new PCclient.Execute<PostCodeFields>(PCrequest);
-        }
-
-        public RestResponse response() {return Response.Data.result;}
-
-
+}
