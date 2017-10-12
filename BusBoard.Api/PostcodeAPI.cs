@@ -7,7 +7,7 @@ using RestSharp;
 
 namespace BusBoard.Api
 {
-    class PostCodeAPI
+    public class PostCodeAPI
     {
         public string postcode { get; }
         public RestClient PCclient = new RestClient("https://api.postcodes.io");

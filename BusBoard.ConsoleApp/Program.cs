@@ -62,8 +62,10 @@ namespace BusBoard.ConsoleApp
             System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
 
             var postcode = AskUserForPostcode();
-            var PostCodeQuery = new 
-            PrintArrivalTimesToConsole(arrivalTimes);
+            var PostLonLat = new PostCodeAPI().ReturnPostCode(postcode);
+            var TFIGeoReturn = new TFLAPI().GetBusStopCodeForLocationFromTFL(PostLonLat.latitude, PostLonLat.longitude);
+            var StopReturns = new TFLAPI().GetBusStopArrivalTimesFromTFL(TFIGeoReturn);
+            PrintArrivalTimesToConsole(StopReturns);
         }
     }
 }
