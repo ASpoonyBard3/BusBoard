@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using RestSharp;
 using RestSharp.Authenticators;
-using Newtonsoft.Json;
-using System.Collections;
 
 namespace BusBoard.ConsoleApp
 {
@@ -68,6 +64,17 @@ namespace BusBoard.ConsoleApp
             PrintArrivalTimesToConsole(arrivalTimes);
         }
     }
-}
+public class GetPostcodeLocationFromPostcodeAPI
+    {
+        public string postcode { get; set; }
+
+        public Method GetPostcodeLocationFromPostcodeAPI(string postcode)
+        {
+            private RestClient PCclient = new RestClient("https://api.postcodes.io");
+            private RestRequest PCrequest = new RestRequest("/postcodes/" + postcode + "", Method.GET);
+            private RestResponse response = new PCclient.Execute<PostCodeFields>(PCrequest);
+        }
+
+        public RestResponse response() {return Response.Data.result;}
 
 
