@@ -66,9 +66,7 @@ namespace BusBoard.ConsoleApp
             var busStopCode = GetBusStopCodeForLocationFromTFL(postcodeLocation.latitude, postcodeLocation.longitude);
             var arrivalTimes = GetBusStopArrivalTimesFromTFL(busStopCode);
             PrintArrivalTimesToConsole(arrivalTimes);
-
         }
-        
     }
 }
 
@@ -85,7 +83,6 @@ public class ArrivalPrediction
         return stringTime;
     }
 }
-
 
 public class PostCodeFields
 {
