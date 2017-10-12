@@ -70,39 +70,4 @@ namespace BusBoard.ConsoleApp
     }
 }
 
-public class ArrivalPrediction
-{
-    public string Id { get; set; }
-    public string StationName { get; set; }
-    public int TimeToStation { get; set; }
-
-    public string GetArrivalTime()
-    {
-        TimeSpan time = TimeSpan.FromSeconds(TimeToStation);
-        String stringTime = time.ToString(@"\:mm\:ss");
-        return stringTime;
-    }
-}
-
-public class PostCodeFields
-{
-    public string status { get; set; }
-    public PostcodeLocation result { get; set; }
-}
-public class PostcodeLocation
-{
-    public float longitude { get; set; }
-    public float latitude { get; set; }
-}
-
-public class StopPointDetails
-{
-    public List<float> centrePoint { get; set; }
-    public List<SingleStopPoint> stopPoints { get; set; }
-}
-public class SingleStopPoint
-{
-    public string naptanId { get; set; }
-}
-
 
