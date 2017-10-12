@@ -30,7 +30,6 @@ namespace BusBoard.ConsoleApp
         private static string GetBusStopCodeForLocationFromTFL(float lat,  float lon)
         {
             var client = new RestClient("https://api.tfl.gov.uk");
-            client.Authenticator = new HttpBasicAuthenticator("6d4298b1", "63f65d0071453ee130f132a483601da1");
             var request = new RestRequest("StopPoint?stopTypes=NaptanPublicBusCoachTram&returnLines=true&lat=" + lat + "&lon=" + lon + "", Method.GET);
             request.AddParameter("app_id", "6d4298b1");
             request.AddParameter("app_key", "63f65d0071453ee130f132a483601da1");
@@ -68,53 +67,8 @@ namespace BusBoard.ConsoleApp
             var arrivalTimes = GetBusStopArrivalTimesFromTFL(busStopCode);
             PrintArrivalTimesToConsole(arrivalTimes);
 
-
-            //Console.WriteLine("Please enter your bus stop code.");
-            //string busStop = Console.ReadLine();
-
-            //Console.WriteLine("Please enter your postcode.");
-            //string postCode = Console.ReadLine();
-
-            //BusStopAPI(busStop, out RestClient client, out RestRequest request);
-
-            //PostCodeAPI(postCode, out RestClient PCclient, out RestRequest PCrequest);
-
-            //IRestResponse<PostCodeFields> response = client.Execute<PostCodeFields>(request);
-            //var postcodeLocation = response.Data;
-
-            //IEnumerable<ArrivalPrediction> limitedArrivals = OrderedByArrivals(response);
-
-            //foreach (var Arrival in limitedArrivals)
-            //{
-            //    Console.WriteLine(Arrival.Id);
-            //    Console.WriteLine(Arrival.StationName);
-            //    Console.WriteLine("This bus is due in {0}", Arrival.GetArrivalTime());
-            //}
-            //Console.ReadLine();
         }
-
-        private static IEnumerable<ArrivalPrediction> OrderedByArrivals(IRestResponse response)
-        {
-            List<ArrivalPrediction> ArrivalPredictions = JsonConvert.DeserializeObject<List<ArrivalPrediction>>(response.Content);
-            IEnumerable<ArrivalPrediction> orderedArrivals = ArrivalPredictions.OrderBy(ap => ap.TimeToStation); //lambda expression.
-            var limitedArrivals = orderedArrivals.Take(5);//Take(n) returns the specified amount of objects from the list.
-            return limitedArrivals; //returns the limited arrivals Enum to the main function, as method is not void 
-        }
-
-        private static void BusStopAPI(string busStop, string postcodeLocation, out RestClient client, out RestRequest request)
-        {
-            client = new RestClient("https://api.tfl.gov.uk");
-            request = new RestRequest("StopPoint/" + busStop + "/StopPoint_GetByGeoPoint", Method.GET);
-            request = new RestRequest("StopPoint?stopTypes=NaptanPublicBusCoachTram&returnLines=true&lat=" + postcodeLocation + "&lon=" + postcodeLocation + "", Method.GET);
-
-            client.Authenticator = new HttpBasicAuthenticator("6d4298b1", "63f65d0071453ee130f132a483601da1");
-        }
-
-        private static void PostCodeAPI(string postCode, out RestClient PCclient, out RestRequest PCrequest)
-        {
-            PCclient = new RestClient("https://api.postcodes.io");
-            PCrequest = new RestRequest("/postcodes/" + postCode + "", Method.GET);
-        }
+        
     }
 }
 
